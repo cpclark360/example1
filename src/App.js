@@ -24,28 +24,7 @@ import './App.css';
 //     </div>
 //   );
 // }
-const playerList = [
-{
-  name: "Guil",
-  score: 50,
-  id: 0
-},
-{
-  name: "Treasure",
-  score: 85,
-  id: 1
-},
-{
-  name: "Ashley",
-  score: 95,
-  id: 2
-},
-{
-  name: "James",
-  score: 80,
-  id: 3
-  }
-];
+
 
 // Creating a React stateless component called 'Header'
 const Header = ( props ) => {
@@ -119,18 +98,44 @@ decrementScore = ( ) => {
 
 // Main component 
 class App extends React.Component {
+
+constructor() {
+  super()
+  this.state = {
+    players: [
+      {
+        name: "Guil",
+        id: 0
+      },
+      {
+        name: "Treasure",
+        id: 1
+      },
+      {
+        name: "Ashley",
+        id: 2
+      },
+      {
+        name: "James",
+        id: 3
+        }
+    ]
+  }
+}
+
+
   render() {
     return (
       <div className="scoreboard">
         <Header 
         title="scoreboard" 
-        totalPlayers={ playerList.length }
+        totalPlayers={ this.state.players.length }
         />
 
         {/* Players list */}
         {/* Java script expressions must be contained inside curly brackets */}
         {/* iterate over array using map() */}
-        {playerList.map(( players ) => 
+        {this.state.players.map(( players ) => 
           <Player 
             {...players} /* spread operator that stores all the properties in an object */
             name={ players.name } 
