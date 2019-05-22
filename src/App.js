@@ -2,23 +2,141 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-function App() {
+// const code = 'src/App.js';
+// function App() {
+//   return (
+//     <div className="App">
+//     {/* Comments go here */}
+//       <header className="App-header">
+//         <img src={logo} className="App-logo" alt="logo" />
+//         <p>
+//           Edit <code>{ code }</code> and save to reload.
+//         </p>
+//         <a
+//           className="App-link"
+//           href="https://reactjs.org"
+//           target="_blank"
+//           rel="noopener noreferrer"
+//         >
+//           Learn React
+//         </a>
+//       </header>
+//     </div>
+//   );
+// }
+const playerList = [
+{
+  name: "Guil",
+  score: 50,
+  id: 0
+},
+{
+  name: "Treasure",
+  score: 85,
+  id: 1
+},
+{
+  name: "Ashley",
+  score: 95,
+  id: 2
+},
+{
+  name: "James",
+  score: 80,
+  id: 3
+  }
+];
+
+// Creating a React stateless component called 'Header'
+const Header = ( props ) => {
+  console.log( props );
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <header>
+      <h1>{ props.title }</h1>
+      <span className='stats'>Players: { props.totalPlayers }</span>
+    </header>
+  );
+}
+
+// Creating a React stateless component called 'Player'
+const Player = ( props ) => {
+    return(
+    <div className="player">
+      <span className="player-name">
+        { props.name }
+      </span>
+
+      <Counter />
+    </div>
+  );
+}
+
+// Creating a React stateful component class called 'counter'
+class Counter extends React.Component {
+// creating state for counter 
+  constructor() {
+    // super() needed to use React.Component 'this'
+    super()
+    this.state = {
+      // set default value of the state
+      score: 0
+    };
+  }
+
+  /* 
+    or create state this way. Babel
+
+    state = {
+      score: 0
+    };
+  
+  
+  */
+incrementScore = ( ) => {
+  // pass setState() an object
+  this.setState({
+    score: this.state.score + 1
+  });
+}
+
+
+    render() {
+      return (
+        <div className="counter">
+            <button className="counter-action decrement"> - </button>
+            <span className="counter-score">{ this.state.score }</span>
+            <button className="counter-action increment" onClick={this.incrementScore}> + </button>
+          </div>
+      );
+     }
+}
+
+// Main component 
+const App = ( props ) => {
+  return (
+    <div className="scoreboard">
+      <Header 
+      title="scoreboard" 
+      totalPlayers={ playerList.length }
+      />
+
+      {/* Players list */}
+      {/* Java script expressions must be contained inside curly brackets */}
+      {/* iterate over array using map() */}
+      {playerList.map(( players ) => 
+        <Player 
+          {...players} /* spread operator that stores all the properties in an object */
+          name={ players.name } 
+          key={ players.id.toString() }
+          />
+        )}
+
+        {/*
+      <Player name="Cedric" score={50} />
+      <Player name="Paxton" score={70} />
+      <Player name="Mario" score={20} />
+      <Player name="Ashley" score={33} />
+      */}
     </div>
   );
 }
