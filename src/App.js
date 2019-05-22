@@ -93,7 +93,7 @@ incrementScore = ( ) => {
   // pass setState() an object or callback function is going to fire no matter what
   this.setState( prevState => {
     return {
-      score: this.state.score + 1
+      score: prevState.score += 1
     };
   });
 }
@@ -102,7 +102,7 @@ decrementScore = ( ) => {
   // pass setState() an object or callback function is going to fire no matter what
   this.setState( prevState => {
     return {
-      score: prevState.state.score - 1
+      score: prevState.score -= 1
     };
   });
 }
@@ -118,33 +118,35 @@ decrementScore = ( ) => {
 }
 
 // Main component 
-const App = ( props ) => {
-  return (
-    <div className="scoreboard">
-      <Header 
-      title="scoreboard" 
-      totalPlayers={ playerList.length }
-      />
+class App extends React.Component {
+  render() {
+    return (
+      <div className="scoreboard">
+        <Header 
+        title="scoreboard" 
+        totalPlayers={ playerList.length }
+        />
 
-      {/* Players list */}
-      {/* Java script expressions must be contained inside curly brackets */}
-      {/* iterate over array using map() */}
-      {playerList.map(( players ) => 
-        <Player 
-          {...players} /* spread operator that stores all the properties in an object */
-          name={ players.name } 
-          key={ players.id.toString() }
-          />
-        )}
+        {/* Players list */}
+        {/* Java script expressions must be contained inside curly brackets */}
+        {/* iterate over array using map() */}
+        {playerList.map(( players ) => 
+          <Player 
+            {...players} /* spread operator that stores all the properties in an object */
+            name={ players.name } 
+            key={ players.id.toString() }
+            />
+          )}
 
-        {/*
-      <Player name="Cedric" score={50} />
-      <Player name="Paxton" score={70} />
-      <Player name="Mario" score={20} />
-      <Player name="Ashley" score={33} />
-      */}
-    </div>
-  );
+          {/*
+        <Player name="Cedric" score={50} />
+        <Player name="Paxton" score={70} />
+        <Player name="Mario" score={20} />
+        <Player name="Ashley" score={33} />
+        */}
+      </div>
+    );
+   } 
 }
 
 export default App;
