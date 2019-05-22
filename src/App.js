@@ -90,16 +90,20 @@ class Counter extends React.Component {
     };
   */
 incrementScore = ( ) => {
-  // pass setState() an object
-  this.setState({
-    score: this.state.score + 1
+  // pass setState() an object or callback function is going to fire no matter what
+  this.setState( prevState => {
+    return {
+      score: this.state.score + 1
+    };
   });
 }
 
 decrementScore = ( ) => {
-  // pass setState() an object
-  this.setState({
-    score: this.state.score - 1
+  // pass setState() an object or callback function is going to fire no matter what
+  this.setState( prevState => {
+    return {
+      score: prevState.state.score - 1
+    };
   });
 }
     render( ) {
