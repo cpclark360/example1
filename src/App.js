@@ -82,15 +82,12 @@ class Counter extends React.Component {
       score: 0
     };
   }
-
   /* 
     or create state this way. Babel
 
     state = {
       score: 0
     };
-  
-  
   */
 incrementScore = ( ) => {
   // pass setState() an object
@@ -99,13 +96,18 @@ incrementScore = ( ) => {
   });
 }
 
-
-    render() {
+decrementScore = ( ) => {
+  // pass setState() an object
+  this.setState({
+    score: this.state.score - 1
+  });
+}
+    render( ) {
       return (
         <div className="counter">
-            <button className="counter-action decrement"> - </button>
+            <button className="counter-action decrement" onClick={ this.decrementScore }> - </button>
             <span className="counter-score">{ this.state.score }</span>
-            <button className="counter-action increment" onClick={this.incrementScore}> + </button>
+            <button className="counter-action increment" onClick={ this.incrementScore }> + </button>
           </div>
       );
      }
