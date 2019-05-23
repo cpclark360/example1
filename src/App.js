@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import Header from './components/Header'
 // const code = 'src/App.js';
 // function App() {
 //   return (
@@ -26,22 +26,23 @@ import './App.css';
 // }
 
 
-// Creating a React stateless component called 'Header'
-const Header = ( props ) => {
-  console.log( props );
-  return (
-    <header>
-      <h1>{ props.title }</h1>
-      <span className='stats'>Players: { props.totalPlayers }</span>
-    </header>
-  );
-}
+// // Creating a React stateless component called 'Header'
+// const Header = ( props ) => {
+//   console.log( props );
+//   return (
+//     <header>
+//       <h1>{ props.title }</h1>
+//       <span className='stats'>Players: { props.totalPlayers }</span>
+//     </header>
+//   );
+// }
 
 // Creating a React stateless component called 'Player'
 const Player = ( props ) => {
     return(
     <div className="player">
       <span className="player-name">
+        <button className="remove-player" onClick={ () => props.removePlayer(props.id)}>✖</button>
         { props.name }
       </span>
 
@@ -123,6 +124,16 @@ constructor() {
   }
 }
 
+handleRemovePlayer = (id) => {
+  this.setState( prevState => {
+    return {
+      // removes the array item and creates a new array without the item
+      players: prevState.players.filter( removPlayer => removPlayer.id !== id )
+    };
+  });
+}
+
+
 
   render() {
     return (
@@ -140,6 +151,8 @@ constructor() {
             {...players} /* spread operator that stores all the properties in an object */
             name={ players.name } 
             key={ players.id.toString() }
+            id={  players.id }
+            removePlayer={ this.handleRemovePlayer }
             />
           )}
 
