@@ -1,7 +1,9 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Header from './components/Header'
+import Header from './components/Header';
+import Player from './components/Player';
+
 // const code = 'src/App.js';
 // function App() {
 //   return (
@@ -37,134 +39,70 @@ import Header from './components/Header'
 //   );
 // }
 
-// Creating a React stateless component called 'Player'
-const Player = ( props ) => {
-    return(
-    <div className="player">
-      <span className="player-name">
-        <button className="remove-player" onClick={ () => props.removePlayer(props.id)}>✖</button>
-        { props.name }
-      </span>
+// // Creating a React stateless component called 'Player'
+// const Player = ( props ) => {
+//     return(
+//     <div className="player">
+//       <span className="player-name">
+//         <button className="remove-player" onClick={ () => props.removePlayer(props.id)}>✖</button>
+//         { props.name }
+//       </span>
 
-      <Counter />
-    </div>
-  );
-}
+//       <Counter />
+//     </div>
+//   );
+// }
 
-// Creating a React stateful component class called 'counter'
-class Counter extends React.Component {
-// creating state for counter 
-  constructor() {
-    // super() needed to use React.Component 'this'
-    super()
-    this.state = {
-      // set default value of the state
-      score: 0
-    };
-  }
-  /* 
-    or create state this way. Babel
-
-    state = {
-      score: 0
-    };
-  */
-incrementScore = ( ) => {
-  // pass setState() an object or callback function is going to fire no matter what
-  this.setState( prevState => {
-    return {
-      score: prevState.score += 1
-    };
-  });
-}
-
-decrementScore = ( ) => {
-  // pass setState() an object or callback function is going to fire no matter what
-  this.setState( prevState => {
-    return {
-      score: prevState.score -= 1
-    };
-  });
-}
-    render( ) {
-      return (
-        <div className="counter">
-            <button className="counter-action decrement" onClick={ this.decrementScore }> - </button>
-            <span className="counter-score">{ this.state.score }</span>
-            <button className="counter-action increment" onClick={ this.incrementScore }> + </button>
-          </div>
-      );
-     }
-}
-
-// Main component 
 class App extends React.Component {
-
-constructor() {
-  super()
-  this.state = {
+  state = {
     players: [
       {
         name: "Guil",
-        id: 0
-      },
-      {
-        name: "Treasure",
         id: 1
       },
       {
-        name: "Ashley",
+        name: "Treasure",
         id: 2
       },
       {
-        name: "James",
+        name: "Ashley",
         id: 3
-        }
+      },
+      {
+        name: "James",
+        id: 4
+      }
     ]
+  };
+
+  handleRemovePlayer = (id) => {
+    this.setState( prevState => {
+      return {
+        players: prevState.players.filter(p => p.id !== id)
+      };
+    });
   }
-}
-
-handleRemovePlayer = (id) => {
-  this.setState( prevState => {
-    return {
-      // removes the array item and creates a new array without the item
-      players: prevState.players.filter( removPlayer => removPlayer.id !== id )
-    };
-  });
-}
-
-
 
   render() {
     return (
       <div className="scoreboard">
         <Header 
-        title="scoreboard" 
-        totalPlayers={ this.state.players.length }
+          title="Scoreboard" 
+          totalPlayers={this.state.players.length} 
         />
-
+  
         {/* Players list */}
-        {/* Java script expressions must be contained inside curly brackets */}
-        {/* iterate over array using map() */}
-        {this.state.players.map(( players ) => 
+        {this.state.players.map( player =>
           <Player 
-            {...players} /* spread operator that stores all the properties in an object */
-            name={ players.name } 
-            key={ players.id.toString() }
-            id={  players.id }
-            removePlayer={ this.handleRemovePlayer }
-            />
-          )}
-
-          {/*
-        <Player name="Cedric" score={50} />
-        <Player name="Paxton" score={70} />
-        <Player name="Mario" score={20} />
-        <Player name="Ashley" score={33} />
-        */}
+            name={player.name}
+            id={player.id}
+            key={player.id.toString()} 
+            removePlayer={this.handleRemovePlayer}           
+          />
+        )}
       </div>
     );
-   } 
+  }
 }
 
 export default App;
