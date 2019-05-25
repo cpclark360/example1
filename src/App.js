@@ -82,13 +82,13 @@ class App extends Component {
           ]
         };
       }
-      HandleScoreChange = ( newScore ) => {
+      HandleScoreChange = ( index, newScore ) => {
         // pass setState() an object or callback function is going to fire no matter what
         this.setState( prevState => {
-          // return {
-          //   score: prevState.score += 1
-          // };
-          console.log(newScore);
+          return {
+            score: prevState.players[index].score += newScore
+          };
+          //console.log('index: ' + index, 'newScore: ' + newScore);
         });
       }
 
@@ -108,12 +108,13 @@ class App extends Component {
           totalPlayers={this.state.players.length} 
         />
   
-        {/* Players list */}
-        {this.state.players.map( player =>
+        {/* Players list  passing props to player.js*/}
+        {this.state.players.map( (player, index ) =>
           <Player 
             name={player.name}
             score={player.score}
             id={player.id}
+            index={index}
             key={player.id.toString()}
             changeScore={this.HandleScoreChange}
             removePlayer={this.handleRemovePlayer}           
