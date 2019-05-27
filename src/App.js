@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import Header from './components/Header';
 import Player from './components/Player';
+import Addplayer from './components/Addplayer';
 
 // const code = 'src/App.js';
 // function App() {
@@ -81,7 +82,10 @@ class App extends Component {
             }
           ]
         };
+
       }
+      lastPlayerId = 4;
+
       HandleScoreChange = ( index, newScore ) => {
         // pass setState() an object or callback function is going to fire no matter what
         this.setState( prevState => {
@@ -91,6 +95,22 @@ class App extends Component {
           //console.log('index: ' + index, 'newScore: ' + newScore);
         });
       }
+// adding another player to players array of objects
+  handleAddPlayer = ( name ) => {
+    // '...' spread operator loads everything currently in state
+    this.setState( prevState => {
+      return {
+        players: [
+            ...prevState.players,
+          {
+            name: name,
+            score: 0,
+            id: this.lastPlayerId += 1
+          }
+        ]
+      } 
+    });
+  }
 
   handleRemovePlayer = (id) => {
     this.setState( prevState => {
@@ -120,6 +140,8 @@ class App extends Component {
             removePlayer={this.handleRemovePlayer}           
           />
         )}
+
+        <Addplayer Addplayer={this.handleAddPlayer} />
       </div>
     );
   }
