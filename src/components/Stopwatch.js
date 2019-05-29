@@ -34,7 +34,14 @@ class Stopwatch extends Component {
     componentDidMount() {
         this.intervalID = setInterval(() => this.tick(), 100);
     }
+// when the mount unmounts clears the interval to stop memory leaks
+    componentWillUnmount() {
+        clearInterval(this.intervalID);
+    }
 
+    HandleReset = () => {
+        this.setState({elapsedTime: 0});
+    }
 
     render() {
         return (
@@ -46,7 +53,7 @@ class Stopwatch extends Component {
                 <button onClick={this.handleStopwatch}>
                     {this.state.isRunning ? 'Stop' : 'Start' }
                 </button>
-                <button>Reset</button>
+                <button onClick={this.HandleReset}>Reset</button>
             </div>
         );
     }
