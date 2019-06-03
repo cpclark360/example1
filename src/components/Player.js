@@ -6,14 +6,14 @@ import Counter from './Counter';
 // extend 'PureComponent' only re-renders the portion of that changes to save resources.
 class Player extends PureComponent {
   
-// defining propTypes inside the class
+// defining propTypes inside the class and make them required
 static propTypes = {
-  name: PropTypes.string,
-  removePlayer: PropTypes.func,
-  id: PropTypes.number,
-  score: PropTypes.number,
-  index: PropTypes.number,
-  changeScore: PropTypes.func 
+  name: PropTypes.string.isRequired,
+  removePlayer: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+  changeScore: PropTypes.func.isRequired 
 };
 
   render() {

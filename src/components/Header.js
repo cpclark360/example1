@@ -21,4 +21,9 @@ Header.propTypes = {
   players: PropTypes.arrayOf(PropTypes.object)
 };
 
+// sets a default propType value
+Header.defaultProps = {
+  title: 'Scoreboard'
+};
+
 export default Header;
