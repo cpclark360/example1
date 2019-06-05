@@ -10,7 +10,7 @@ class Stopwatch extends Component {
         }
     }
 
-    
+    // function keeps track of time lapsed
     tick = ( ) => {
         if(this.state.isRunning){
             const now = Date.now();
