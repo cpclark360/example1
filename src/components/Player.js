@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import Counter from './Counter';
+import Icon from './icon';
 
 // Creating a React stateless component called 'Player'
 // extend 'PureComponent' only re-renders the portion of that changes to save resources.
@@ -24,13 +25,16 @@ static propTypes = {
       id,
       score,
       index,
-      changeScore 
+      changeScore,
+      isHighScore 
     } = this.props;
     
     return(
     <div className="player">
       <span className="player-name">
         <button className="remove-player" onClick={ () => removePlayer(id)}>✖</button>
+
+      <Icon isHighScore={isHighScore} /> 
         { name }
       </span>
       
